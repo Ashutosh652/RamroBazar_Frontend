@@ -1,0 +1,66 @@
+/* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 1px solid red;
+} */
+
+.form-box {
+  min-width: 50%;
+  height: 80vh;
+  margin-left: 15vw;
+  margin-top: 5vh;
+  /* margin-bottom: 10; */
+  padding: 3vh 5vw 3vh 5vw;
+  position: relative;
+  /* background-color: #000; */
+  border: 3px solid #256ce1
+}
+
+.form-box .register {
+  font-size: 30px;
+  text-align: center;
+  color: #256ce1;
+  margin: 0 0 2vh 0;
+}
+
+.form-box label {
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  margin: 0 0 2vh 0;
+}
+
+.form-box input {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.8rem 0.5rem 0.8rem;
+  margin: 0.9vw 0;
+  border: 0;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.submitBtn {
+  /* display: inline-block; */
+  width: 20%;
+  height: 1.5rem;
+  color: #256ce1;
+  border: 0;
+  bottom: 0;
+  cursor: pointer;
+  font-size: 20px;
+  position: relative;
+  margin-left: 41%;
+  margin-top: 2vh;
+}
+
+/* .form-box .fields {
+    border: #f55a00;
+    border-radius: 5px;
+} */
+
+.error {
+    color: red;
+    font-size: smaller;
+}

@@ -1,0 +1,49 @@
+.container {
+  height: 100%;
+  width: 100%;
+}
+
+.user-profile {
+  /* height: 100%; */
+  width: 100%;
+}
+
+.user-info {
+  /* background-color: #000; */
+  /* color: #fff; */
+  width: 90%;
+  border: 2px solid red;
+  margin: 5vh auto;
+  display: flex;
+}
+
+/* .profile-pic {
+  float: left;
+} */
+
+.pic {
+  height: 5rem;
+  width: 100%;
+  border: 1px solid black;
+  margin-top: 6%;
+  margin-left: 6%;
+}
+
+.user-details {
+  margin-left: 4%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.user-detail {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+/* .lower {
+  display: flex;
+}
+
+.sale-items {
+  align-items: center;
+} */
