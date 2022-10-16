@@ -1,6 +1,6 @@
 .container {
   height: 100%;
-  width: 100%;
+  width: 83%;
 }
 
 .user-profile {
@@ -40,10 +40,41 @@
   margin-bottom: 1em;
 }
 
-/* .lower {
+.lower {
   display: flex;
+  flex-direction: row;
+  /* border: 2px solid red; */
 }
 
-.sale-items {
+.items {
+  margin: 5%;
+  /* border: 2px solid green; */
+  width: 45%;
+  /* height: 3%; */
+  overflow: auto;
+  background-color: rgba(161, 54, 54, 0.1);
+}
+
+/* .sale-items {
   align-items: center;
+  margin: 5%;
 } */
+
+.title-head {
+  font-size: large;
+  text-align: center;
+}
+
+.item-list{
+  padding: 2%;
+}
+
+.item {
+  transition: background-color 0.15s;
+  padding: 2%;
+}
+
+.item:hover {
+  cursor: pointer;
+  background-color: rgba(161, 54, 54, 0.1);
+}

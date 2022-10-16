@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { axiosInstance } from "../../axios";
 import { ImCross } from "react-icons/im";
 import { TiTick } from "react-icons/ti";
@@ -54,28 +54,56 @@ const UserProfile = () => {
                   )}
                 </div>
               ) : null}
-              <div className="user-detail">
-                Number of items sold: {userData.no_sold_items}
-              </div>
             </div>
           </div>
         </div>
       ) : (
         <span>Sorry, User Data Not Found</span>
       )}
-      <div className="lower">
-        <div className="sale-items">
-          <div className="title-head">
-            <span>Items On Sale</span>
+      {userData ? (
+        <div className="lower">
+          <div className="items sale-items">
+            <div className="title-head">
+              <span>Items On Sale</span>
+            </div>
+            <div className="item-list">
+              {userData.items_for_sale.map((item, index) => {
+                return (
+                  <div className="item" key={index}>
+                    <Link
+                      style={{ textDecoration: "none", color: "#000" }}
+                      to="#"
+                    >
+                      {item.name}
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <div className="items">
-            {userData.items_for_sale.map((item, index) => {
-              return <p key={index}>{item.name}</p>;
-            })}
+          <div className="items sold-items">
+            <div className="title-head">
+              <span>Items Sold</span>
+            </div>
+            <div className="item-list">
+              {userData.items_sold.map((item, index) => {
+                return (
+                  <div className="item" key={index}>
+                    <Link
+                      style={{ textDecoration: "none", color: "#000" }}
+                      to="#"
+                    >
+                      {item.name}
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
-        <div></div>
-      </div>
+      ) : (
+        <span>Sorry, User Data Not Found</span>
+      )}
     </div>
   );
 };

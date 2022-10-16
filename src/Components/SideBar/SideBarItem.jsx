@@ -17,6 +17,7 @@ const SideBarItem = ({ category }) => {
             <Link
               style={{ textDecoration: "none", color: "#fff" }}
               to={`/items/${category.slug}`}
+              state={category.name}
             >
               {category.name}
             </Link>
