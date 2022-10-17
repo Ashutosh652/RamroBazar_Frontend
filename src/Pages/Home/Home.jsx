@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { NavLink as Link } from "react-router-dom";
 import { axiosInstance } from "../../axios";
 import styled from "styled-components";
 import { TbJewishStar } from "react-icons/tb";
+import useLoadMore from "../../Hooks/useLoadMore";
 import "./Home.css";
 
 const ItemCard = styled(Link)`
@@ -87,56 +88,79 @@ const AddWishList = styled.div`
 `;
 
 const Home = () => {
-  const [items, setItems] = useState(null);
+  const [pageNumber, setPageNumber] = useState(1);
+  const observer = useRef();
+  const { loading, hasMore, items } = useLoadMore(pageNumber);
+  const lastItemElementRef = useCallback(
+    (node) => {
+      if (loading) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPageNumber((prevPageNumber) => prevPageNumber + 1);
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [loading, hasMore]
+  );
 
-  useEffect(() => {
-    axiosInstance.get(`items/`).then((response) => {
-      setItems(response.data);
-      console.log(response.data);
-    });
-  }, []);
+  const itemCardContent = (item) => (
+    <>
+      <ItemImage
+        src={item.media.map((img) => {
+          if (img.is_feature) {
+            return img.image;
+          } else {
+            console.log(
+              "Featured image for the item " + item.name + "does not exist."
+            );
+            return "default product image url";
+          }
+        })}
+      ></ItemImage>
+      <ItemInfo>
+        <ItemTitle>{item.name}</ItemTitle>
+        <br />
+        <ItemDescription>{item.description}</ItemDescription>
+        <br />
+        <ItemPrice>Rs. {item.show_price}</ItemPrice>
+        <br />
+        <ItemLocation>{item.location}</ItemLocation>
+        <br />
+        <ItemDate>Last Updated: {item.updated_at}</ItemDate>
+        <br />
+        <Divider />
+        <AddWishList>
+          <TbJewishStar />
+          <span> Add to WishList </span>
+        </AddWishList>
+      </ItemInfo>
+    </>
+  );
 
   return (
     <div className="container">
-      {items ? (
+      {!loading ? (
         <div className="home">
-          {items.results.map((item, index) => {
-            return (
-              <ItemCard to="#" key={index}>
-                <ItemImage
-                  src={item.media.map((img) => {
-                    if (img.is_feature) {
-                      return img.image;
-                    } else {
-                      console.log(
-                        "Featured image for the item " +
-                          item.name +
-                          "does not exist."
-                      );
-                      return "default product image url";
-                    }
-                  })}
-                ></ItemImage>
-                <ItemInfo>
-                  <ItemTitle>{item.name}</ItemTitle>
-                  <br />
-                  <ItemDescription>{item.description}</ItemDescription>
-                  <br />
-                  <ItemPrice>Rs. {item.show_price}</ItemPrice>
-                  <br />
-                  <ItemLocation>{item.location}</ItemLocation>
-                  <br />
-                  <ItemDate>Last Updated: {item.updated_at}</ItemDate>
-                  <br />
-                  <Divider />
-                  <AddWishList>
-                    <TbJewishStar />
-                    <span> Add to WishList </span>
-                  </AddWishList>
-                </ItemInfo>
-              </ItemCard>
-            );
+          {items.map((item, index) => {
+            if (items.length === index + 1) {
+              return (
+                <ItemCard to="#" key={index} ref={lastItemElementRef} style={{marginBottom: "5em"}}>
+                  {itemCardContent(item)}
+                </ItemCard>
+              );
+            } else {
+              return (
+                <ItemCard to="#" key={index}>
+                  {itemCardContent(item)}
+                </ItemCard>
+              );
+            }
           })}
+          <span>
+            {loading && "Loading..."}
+          </span>
         </div>
       ) : (
         <span>Loading...</span>
