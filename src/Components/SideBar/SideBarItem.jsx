@@ -16,8 +16,7 @@ const SideBarItem = ({ category }) => {
           <span>
             <Link
               style={{ textDecoration: "none", color: "#fff" }}
-              to={`/items/${category.slug}`}
-              state={category.name}
+              to={`/items/category/${category.slug}`}
             >
               {category.name}
             </Link>
@@ -38,7 +37,7 @@ const SideBarItem = ({ category }) => {
           <span>
             <Link
               style={{ textDecoration: "none", color: "#fff" }}
-              to={`/items/${category.slug}`}
+              to={`/items/category/${category.slug}`}
             >
               {category.name}
             </Link>

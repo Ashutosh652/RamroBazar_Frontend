@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { axiosInstance } from "../../axios";
 import { useNavigate } from "react-router-dom";
 import { BiErrorCircle } from "react-icons/bi";
+// import jwt_decode from "jwt-decode";
 import AuthContext from "./AuthContext";
 
 const Login = () => {
@@ -18,7 +19,8 @@ const Login = () => {
   });
   const [formData, updateFormData] = useState(initialFormData);
   const [errorData, setErrorData] = useState(initialErrorData);
-  const { loggedInUser, setAccessToken } = useContext(AuthContext);
+  const { loggedInUser, setAccessToken, setLoggedInUser } =
+    useContext(AuthContext);
 
   const handleChange = (event) => {
     updateFormData({
@@ -41,6 +43,7 @@ const Login = () => {
         axiosInstance.defaults.headers["Authorization"] =
           "JWT " + localStorage.getItem("access_token");
         setAccessToken(response.data.access);
+        // setLoggedInUser(jwt_decode(localStorage.getItem("access_token")));
         navigate("/");
       })
       .catch((error) => {

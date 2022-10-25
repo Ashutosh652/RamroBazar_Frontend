@@ -9,6 +9,7 @@ import Register from "./Pages/Register/Register";
 import Login from "./Pages/Login/Login";
 import LogOut from "./Pages/Login/LogOut";
 import UserProfile from "./Pages/UserProfile/UserProfile";
+import ItemDetail from "./Pages/ItemDetail/ItemDetail";
 import { SearchProvider } from "./Components/NavBar/SearchContext";
 import { AuthProvider } from "./Pages/Login/AuthContext";
 
@@ -26,7 +27,16 @@ function App() {
                 <Route exact path="/register" element={<Register />} />
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/logout" element={<LogOut />} />
-                <Route exact path="/items/:slug" element={<CategoryFilter />} />
+                <Route
+                  exact
+                  path="/items/category/:slug"
+                  element={<CategoryFilter />}
+                />
+                <Route
+                  exact
+                  path="/item/detail/:slug"
+                  element={<ItemDetail />}
+                />
                 <Route
                   exact
                   path="/search/:query"

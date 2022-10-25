@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../axios";
+import { axiosInstance } from "../../axios";
 
 export default function useLoadMore(pageNumber) {
   const [loading, setLoading] = useState(true);
@@ -10,7 +10,6 @@ export default function useLoadMore(pageNumber) {
   useEffect(() => {
     setLoading(true);
     axiosInstance.get(nextUrl).then((response) => {
-      console.log(response.data.next);
       if (response.data.next) {
         setNextUrl(
           response.data.next.replace(/^(http:\/\/localhost:8000\/api\/)/, "")

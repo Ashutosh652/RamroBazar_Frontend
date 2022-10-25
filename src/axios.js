@@ -1,4 +1,5 @@
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 const baseUrl = "http://localhost:8000/api/";
 
@@ -7,7 +8,7 @@ export const axiosInstance = axios.create({
   timeout: 5000,
   headers: {
     Authorization: localStorage.getItem("access_token")
-      ? "JWT" + localStorage.getItem("access_token")
+      ? "JWT " + localStorage.getItem("access_token")
       : null,
     "Content-Type": "application/json",
     accept: "application/json",
@@ -32,7 +33,7 @@ axiosInstance.interceptors.response.use(
 
     if (
       error.response.status === 401 &&
-      originalRequest.url === baseUrl + "token/refresh/"
+      originalRequest.url === "token/refresh/"
     ) {
       window.location.href = "/login/";
       return Promise.reject(error);
@@ -44,20 +45,20 @@ axiosInstance.interceptors.response.use(
       error.response.statusText === "Unauthorized"
     ) {
       const refreshToken = localStorage.getItem("refresh_token");
+      console.log(refreshToken);
 
       if (refreshToken) {
-        const tokenParts = JSON.parse(atob(refreshToken.split(".")[1]));
+        const tokenParts = jwt_decode(refreshToken);
 
         // exp date in token is expressed in seconds, while now() returns milliseconds:
         const now = Math.ceil(Date.now() / 1000);
-        console.log(tokenParts.exp);
 
         if (tokenParts.exp > now) {
           return axiosInstance
             .post("/token/refresh/", { refresh: refreshToken })
             .then((response) => {
               localStorage.setItem("access_token", response.data.access);
-              localStorage.setItem("refresh_token", response.data.refresh);
+              // localStorage.setItem("refresh_token", response.data.refresh);
 
               axiosInstance.defaults.headers["Authorization"] =
                 "JWT " + response.data.access;
@@ -74,6 +75,7 @@ axiosInstance.interceptors.response.use(
           window.location.href = "/login/";
         }
       } else {
+        console.log("axios7");
         console.log("Refresh token not available.");
         window.location.href = "/login/";
       }
