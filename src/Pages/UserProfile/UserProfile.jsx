@@ -1,110 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 import { axiosInstance } from "../../axios";
-import { ImCross } from "react-icons/im";
-import { TiTick } from "react-icons/ti";
-import "./UserProfile.css";
+import ProfileCard from "../../Components/ProfileCard/ProfileCard";
+import SmallItemsCard from "../../Components/SmallItemsCard/SmallItemsCard";
+import { Container, Lower } from "./UserProfileElements";
+import AuthContext from "../Login/AuthContext";
 
 const UserProfile = () => {
   const { userId } = useParams();
   const [userData, setUserData] = useState(null);
+  const { loggedInUser } = useContext(AuthContext);
+  const canEdit = userData ? userData.id === loggedInUser.user_id : false;
 
   useEffect(() => {
     axiosInstance.get(`users/${userId}`).then((response) => {
       setUserData(response.data);
-      console.log(response.data);
     });
   }, []);
 
   return (
-    <div className="container">
+    <Container>
+      {userData ? <ProfileCard userData={userData} canEdit={canEdit} setUserData={setUserData} /> : <span>Loading...</span>}
       {userData ? (
-        <div className="user-profile">
-          <div className="user-info">
-            <div className="profile-pic">
-              <img
-                src={userData.profile_pic}
-                alt="Profile Pic"
-                className="pic"
-              />
-            </div>
-            <div className="user-details">
-              <div className="user-detail">
-                Name: {userData.first_name} {userData.last_name}
-              </div>
-              {userData.address ? <p>Address: {userData.address}</p> : null}
-              {userData.date_of_birth ? (
-                <div className="user-detail">
-                  Date of Birth: {userData.date_of_birth}
-                </div>
-              ) : null}
-              {userData.email ? (
-                <div className="user-detail">
-                  Email: {userData.email}
-                  {userData.is_email_verified ? (
-                    <span>
-                      {" "}
-                      <TiTick style={{ color: "green" }} size={15} />
-                    </span>
-                  ) : (
-                    <span>
-                      {" "}
-                      <ImCross style={{ color: "red" }} size={10} />
-                    </span>
-                  )}
-                </div>
-              ) : null}
-            </div>
-          </div>
-        </div>
+        <Lower>
+          <SmallItemsCard userData={userData} title="Items On Sale" />
+          <SmallItemsCard userData={userData} title="Items Sold" />
+        </Lower>
       ) : (
         <span>Sorry, User Data Not Found</span>
       )}
-      {userData ? (
-        <div className="lower">
-          <div className="items sale-items">
-            <div className="title-head">
-              <span>Items On Sale</span>
-            </div>
-            <div className="item-list">
-              {userData.items_for_sale.map((item, index) => {
-                return (
-                  <div className="item" key={index}>
-                    <Link
-                      style={{ textDecoration: "none", color: "#000" }}
-                      to="#"
-                    >
-                      {item.name}
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div className="items sold-items">
-            <div className="title-head">
-              <span>Items Sold</span>
-            </div>
-            <div className="item-list">
-              {userData.items_sold.map((item, index) => {
-                return (
-                  <div className="item" key={index}>
-                    <Link
-                      style={{ textDecoration: "none", color: "#000" }}
-                      to="#"
-                    >
-                      {item.name}
-                    </Link>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      ) : (
-        <span>Sorry, User Data Not Found</span>
-      )}
-    </div>
+    </Container>
   );
 };
 

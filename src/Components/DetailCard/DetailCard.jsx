@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { BsChatDots } from "react-icons/bs";
 import { TbJewishStar } from "react-icons/tb";
 import {
@@ -28,9 +28,10 @@ import {
   NoSpecifications,
 } from "./DetailCardElements";
 import ImageSlider from "../ImageSlider/ImageSlider";
-import { formatDate, timeSince } from "../../Services/formatDate";
+import { timeSince } from "../../Services/formatDate";
 
-const DetailCard = ({itemDetail, sellerDetail}) => {
+const DetailCard = ({ itemDetail, sellerDetail }) => {
+  const navigate = useNavigate();
   // const { slug } = useParams();
   // const [itemDetail, setItemDetail] = useState(null);
   // const [sellerDetail, setSellerDetail] = useState(null);
@@ -70,9 +71,19 @@ const DetailCard = ({itemDetail, sellerDetail}) => {
             </ItemTitle>
             {sellerDetail ? (
               <SellerInfo>
-                <ProfilePic src={sellerDetail.profile_pic} />
+                {console.log(sellerDetail)}
+                <ProfilePic
+                  src={sellerDetail.profile_pic}
+                  onClick={() => {
+                    navigate(`/user/${sellerDetail.id}`);
+                  }}
+                />
                 <ProfileInfo>
-                  <SellerName>
+                  <SellerName
+                    onClick={() => {
+                      navigate(`/user/${sellerDetail.id}`);
+                    }}
+                  >
                     {sellerDetail.first_name} {sellerDetail.last_name}
                   </SellerName>
                   <br />
@@ -118,13 +129,17 @@ const DetailCard = ({itemDetail, sellerDetail}) => {
               {itemDetail.created_at ? (
                 <DetailRow>
                   <DetailKey>Ad Created On</DetailKey>
-                  <DetailValue>{timeSince(new Date(itemDetail.created_at))} ago</DetailValue>
+                  <DetailValue>
+                    {timeSince(new Date(itemDetail.created_at))} ago
+                  </DetailValue>
                 </DetailRow>
               ) : null}
               {itemDetail.updated_at ? (
                 <DetailRow>
                   <DetailKey>Ad Last Updated On</DetailKey>
-                  <DetailValue>{timeSince(new Date(itemDetail.updated_at))} ago</DetailValue>
+                  <DetailValue>
+                    {timeSince(new Date(itemDetail.updated_at))} ago
+                  </DetailValue>
                 </DetailRow>
               ) : null}
               {itemDetail.location ? (

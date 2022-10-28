@@ -10,6 +10,7 @@ import Login from "./Pages/Login/Login";
 import LogOut from "./Pages/Login/LogOut";
 import UserProfile from "./Pages/UserProfile/UserProfile";
 import ItemDetail from "./Pages/ItemDetail/ItemDetail";
+// import UpdateProfileForm from "./Pages/ItemAddForm/UpdateProfileForm";
 import { SearchProvider } from "./Components/NavBar/SearchContext";
 import { AuthProvider } from "./Pages/Login/AuthContext";
 
@@ -43,6 +44,11 @@ function App() {
                   element={<SearchResults />}
                 />
                 <Route exact path="/user/:userId" element={<UserProfile />} />
+                {/* <Route
+                  exact
+                  path="/user/update"
+                  element={<UpdateProfileForm />}
+                /> */}
               </Routes>
             </div>
           </SearchProvider>

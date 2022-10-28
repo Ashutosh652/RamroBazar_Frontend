@@ -28,4 +28,3 @@ export function timeSince(date) {
   }
   return Math.floor(seconds) + " seconds";
 }
-var aDay = 24 * 60 * 60 * 1000;

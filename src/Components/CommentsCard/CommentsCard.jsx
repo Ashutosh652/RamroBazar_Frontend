@@ -77,7 +77,14 @@ const CommentsCard = ({ itemDetail }) => {
 
   useEffect(() => {
     axiosInstance.get(`/items/${slug}/comments/`).then((response) => {
-      setComments(response.data);
+      let sortedComments = [...response.data]
+        .sort((a, b) => {
+          return (
+            new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+          );
+        })
+        .reverse();
+      setComments(sortedComments);
     });
   }, []);
 

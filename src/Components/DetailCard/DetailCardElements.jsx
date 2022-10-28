@@ -68,6 +68,10 @@ export const ProfilePic = styled.img`
   border-radius: 50%;
   margin-top: 1%;
   margin-left: 1%;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const ProfileInfo = styled.div`
