@@ -20,14 +20,24 @@ const UserProfile = () => {
 
   return (
     <Container>
-      {userData ? <ProfileCard userData={userData} canEdit={canEdit} setUserData={setUserData} /> : <span>Loading...</span>}
+      {userData ? (
+        <ProfileCard
+          userData={userData}
+          canEdit={canEdit}
+          setUserData={setUserData}
+        />
+      ) : (
+        <span>Loading...</span>
+      )}
       {userData ? (
         <Lower>
           <SmallItemsCard userData={userData} title="Items On Sale" />
           <SmallItemsCard userData={userData} title="Items Sold" />
+          {canEdit && <SmallItemsCard userData={userData} title="Invisible Items" />}
+          {canEdit && <SmallItemsCard userData={userData} title="WishList" />}
         </Lower>
       ) : (
-        <span>Sorry, User Data Not Found</span>
+        <span>Loading...</span>
       )}
     </Container>
   );

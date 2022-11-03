@@ -54,3 +54,10 @@ export const InfoNotGiven = styled.span`
   font-size: small;
   color: #665566;
 `;
+
+export const AddItemButton = styled.button`
+  height: 3em;
+  margin-left: 4em;
+  margin-top: 1em;
+  padding: 0.5em;
+`;

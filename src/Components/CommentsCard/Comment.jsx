@@ -47,7 +47,7 @@ const Comment = ({
           <>
             <ProfilePic src={comment.author.profile_pic} />
             <CommentInfo>
-              <AuthorName>
+              <AuthorName to={`/user/${comment.author.id}`}>
                 {comment.author.first_name} {comment.author.last_name}
               </AuthorName>
               <DateCommented>

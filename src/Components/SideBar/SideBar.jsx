@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useContext } from "react";
 import SideBarItem from "./SideBarItem";
 import "./SideBar.css";
+import CategoryContext from "./CategoryContext";
+import { axiosInstance } from "../../axios";
 
 const SideBar = () => {
-  const baseUrl = "http://localhost:8000/api/categories/";
-  const [categories, setCategories] = useState(null);
+  const { categories, setCategories } = useContext(CategoryContext);
 
   useEffect(() => {
-    axios.get(baseUrl).then((response) => {
+    axiosInstance.get(`categories/`).then((response) => {
       setCategories(response.data);
     });
   }, []);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { unslugify } from "unslugify";
 import styled from "styled-components";
 import ItemCard from "../../Components/ItemCard/ItemCard";
@@ -31,6 +31,7 @@ const CategoryFilter = () => {
     },
     [loading, hasMore]
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (document.getElementById("home")) {
@@ -57,6 +58,9 @@ const CategoryFilter = () => {
             if (items.length === index + 1) {
               return (
                 <div
+                  onClick={() => {
+                    navigate(`/item/detail/${item.slug}`);
+                  }}
                   ref={lastItemElementRef}
                   key={index}
                   style={{ marginBottom: "5em" }}

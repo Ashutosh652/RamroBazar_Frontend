@@ -26,7 +26,7 @@ const ItemDetail = () => {
 
   return (
     <Container>
-      <DetailCard itemDetail={itemDetail} sellerDetail={sellerDetail} />
+      <DetailCard itemDetail={itemDetail} setItemDetail={setItemDetail} sellerDetail={sellerDetail} />
       <CommentsCard itemDetail={itemDetail} />
     </Container>
   );

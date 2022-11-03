@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import { NavLink as Link } from "react-router-dom";
 
 export const Items = styled.div`
   margin: 5%;
   /* border: 2px solid green; */
-  width: 45%;
-  /* height: 3%; */
+  width: 35%;
+  max-height: 30em;
   overflow: auto;
   //   background-color: rgba(161, 54, 54, 0.1);
   background-color: rgba(0, 0, 0, 0.1);
@@ -24,10 +23,8 @@ export const ItemList = styled.div`
 
 export const Item = styled.div`
   padding: 1em;
-  //   text-decoration: none;
-  //   width: 100%;
 
-  &: hover {
+  &:hover {
     background-color: rgba(161, 54, 54, 0.1);
     cursor: pointer;
   }

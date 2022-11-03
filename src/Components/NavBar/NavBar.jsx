@@ -9,13 +9,16 @@ import {
   NavBtnLink,
 } from "./NavBarElements";
 import AuthContext from "../../Pages/Login/AuthContext";
+import BrandContext from "../../Pages/AddItemForm/BrandContext";
 import jwt_decode from "jwt-decode";
 import { AiOutlineSearch } from "react-icons/ai";
+import { axiosInstance } from "../../axios";
 
 const NavBar = () => {
   const [query, setQuery] = useState(null);
   const { loggedInUser, setLoggedInUser, accessToken } =
     useContext(AuthContext);
+  const { setBrands } = useContext(BrandContext);
   const navigate = useNavigate();
 
   const handleSearch = () => {
@@ -29,6 +32,12 @@ const NavBar = () => {
       setLoggedInUser(null);
     }
   }, [accessToken, setLoggedInUser]);
+
+  useEffect(() => {
+    axiosInstance.get(`brands/`).then((response) => {
+      setBrands(response.data.results);
+    });
+  }, []);
 
   return (
     <>

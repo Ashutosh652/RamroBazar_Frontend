@@ -7,7 +7,7 @@ export const Card = styled.div`
   align-items: center;
   text-decoration: none;
   padding: 0 1rem;
-  height: 85%;
+  height: 100%;
   //   width: 97%;
   background-color: white;
   //   margin: 1rem;
@@ -16,7 +16,7 @@ export const Card = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  // overflow: auto;
+  overflow: auto;
 `;
 
 export const ImageSlider = styled.img`
@@ -56,7 +56,7 @@ export const SellerInfo = styled.div`
   // border: 1px solid green;
   background-color: rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-contect: center;
+  justify-content: center;
   // align-items: center;
   margin-top: 1em;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -121,7 +121,7 @@ export const AddWishList = styled.span`
   color: #665566;
   font-size: small;
 
-  &: hover {
+  &:hover {
     color: #000;
     cursor: pointer;
   }
@@ -144,6 +144,8 @@ export const DescrptionContent = styled.div`
   // border: 1px solid red;
   width: 100%;
   text-align: center;
+  max-height: 7em;
+  overflow: auto;
 `;
 
 export const Details = styled.div`
@@ -155,6 +157,8 @@ export const Details = styled.div`
   background-color: rgba(0, 0, 0, 0.1);
   // overflow: auto;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: 12em;
+  overflow: auto;
 `;
 
 export const DetailTitle = styled.div`
@@ -166,7 +170,7 @@ export const DetailTitle = styled.div`
 
 export const DetailRow = styled.div`
   display: flex;
-  height: 2em;
+  min-height: 2em;
   align-items: center;
   border: 1px solid white;
 `;
@@ -183,11 +187,12 @@ export const DetailValue = styled.div`
   // border: 1px solid white;
   text-align: center;
   margin-right: 0em;
+  overflow-x: auto;
 `;
 
 export const Specifications = styled.div`
   width: 100%;
-  max-height: 15em;
+  max-height: 12em;
   margin-top: 1em;
   background-color: rgba(0, 0, 0, 0.1);
   overflow: auto;
@@ -199,4 +204,34 @@ export const NoSpecifications = styled.span`
   color: #665566;
   width: 100%;
   font-size: smaller;
+`;
+
+export const EditIcon = styled.span`
+  margin-left: 1em;
+  color: #665566;
+  font-size: small;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #000;
+  }
+`;
+
+export const AddSpecificationButtonWrapper = styled.div`
+  /* width: 50%; */
+  margin: auto;
+  text-align: center;
+`;
+
+export const AddSpecificationButton = styled.button`
+  width: 7em;
+`;
+
+export const SpecificationRemoveIcon = styled.span`
+  color: #8b0000;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

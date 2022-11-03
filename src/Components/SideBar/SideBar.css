@@ -5,6 +5,7 @@
   height: 100%;
   overflow: auto;
   color: #fff;
+  padding-bottom: 10em;
 }
 
 .sidebar .category {

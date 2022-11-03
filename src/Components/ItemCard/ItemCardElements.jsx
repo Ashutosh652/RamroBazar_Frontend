@@ -74,10 +74,11 @@ export const Divider = styled.hr`
 
 export const AddWishList = styled.div`
   color: #665566;
-  font-size: small;
+  font-size: x-large;
   margin-left: 2rem;
 
-  &: hover {
+  &:hover {
     color: #000;
+    cursor: pointer;
   }
 `;

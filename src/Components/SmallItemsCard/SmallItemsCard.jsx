@@ -13,20 +13,58 @@ const SmallItemsCard = ({ userData, title }) => {
         </TitleHead>
         <ItemList>
           {title === "Items On Sale" &&
-            userData.items_for_sale.map((item, index) => {
-              return (
-                <Item
-                  key={index}
-                  onClick={() => {
-                    navigate(`/item/detail/${item.slug}`);
-                  }}
-                >
-                  <span>{item.name}</span>
-                </Item>
-              );
+            userData.all_items.map((item, index) => {
+              if (item.is_visible === true) {
+                return (
+                  <Item
+                    key={index}
+                    onClick={() => {
+                      navigate(`/item/detail/${item.slug}`);
+                    }}
+                  >
+                    <span>{item.name}</span>
+                  </Item>
+                );
+              } else {
+                return null;
+              }
             })}
           {title === "Items Sold" &&
-            userData.items_sold.map((item, index) => {
+            userData.all_items.map((item, index) => {
+              if (item.is_sold === true) {
+                return (
+                  <Item
+                    key={index}
+                    onClick={() => {
+                      navigate(`/item/detail/${item.slug}`);
+                    }}
+                  >
+                    <span>{item.name}</span>
+                  </Item>
+                );
+              } else {
+                return null;
+              }
+            })}
+          {title === "Invisible Items" &&
+            userData.all_items.map((item, index) => {
+              if (item.is_visible === false) {
+                return (
+                  <Item
+                    key={index}
+                    onClick={() => {
+                      navigate(`/item/detail/${item.slug}`);
+                    }}
+                  >
+                    <span>{item.name}</span>
+                  </Item>
+                );
+              } else {
+                return null;
+              }
+            })}
+          {title === "WishList" &&
+            userData.wishlist.map((item, index) => {
               return (
                 <Item
                   key={index}

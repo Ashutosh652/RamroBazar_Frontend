@@ -12,8 +12,13 @@ import {
   Divider,
   AddWishList,
 } from "./ItemCardElements";
+import { timeSince } from "../../Services/formatDate";
 
 const ItemCard = (item) => {
+  const handleWishList = () => {
+    console.log(item);
+  };
+
   return (
     <>
       <Card>
@@ -39,15 +44,12 @@ const ItemCard = (item) => {
           <br />
           <ItemLocation>{item.item.location}</ItemLocation>
           <br />
-          <ItemDate>Last Updated: {item.item.updated_at}</ItemDate>
+          <ItemDate>Last Updated: {timeSince(new Date(item.item.updated_at))}</ItemDate>
           <br />
           <Divider />
-          <AddWishList>
-            <TbJewishStar />
-            <span> Add to WishList </span>
-          </AddWishList>
         </ItemInfo>
       </Card>
+      
     </>
   );
 };

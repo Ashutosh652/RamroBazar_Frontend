@@ -10,13 +10,14 @@ export const PopupBackground = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 `;
 
 export const PopupCard = styled.div`
   position: relative;
   width: 40%;
   background-color: white;
-  height: 30%;
+  min-height: 30%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 `;
 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineEdit } from "react-icons/ai";
 import {
   UserProfileCard,
@@ -9,12 +10,14 @@ import {
   UserDetail,
   EditIcon,
   InfoNotGiven,
+  AddItemButton,
 } from "./ProfileCardElements";
 import Popup from "../Popup/Popup";
 
 const ProfileCard = ({ userData, canEdit, setUserData }) => {
   const [triggerValue, setTriggerValue] = useState(false);
   const [editOf, setEditOf] = useState("");
+  const navigate = useNavigate();
 
   const handleEditClick = (editOf) => {
     setTriggerValue(true);
@@ -114,7 +117,17 @@ const ProfileCard = ({ userData, canEdit, setUserData }) => {
               Contact Number:{" "}
               {userData.contact_number ? (
                 <>
-                  {userData.contact_number}
+                  {userData.show_contact_number ? (
+                    <>{userData.contact_number}</>
+                  ) : (
+                    <>
+                      {canEdit ? (
+                        <>{userData.contact_number}</>
+                      ) : (
+                        <>Contact Number is set to Invisible.</>
+                      )}
+                    </>
+                  )}
                   {canEdit && (
                     <EditIcon
                       onClick={() => {
@@ -138,6 +151,36 @@ const ProfileCard = ({ userData, canEdit, setUserData }) => {
                     </EditIcon>
                   )}
                 </InfoNotGiven>
+              )}
+            </UserDetail>
+            <UserDetail>
+              Show contact number to other users:{" "}
+              {userData.show_contact_number === true ? (
+                <>
+                  Yes
+                  {canEdit && (
+                    <EditIcon
+                      onClick={() => {
+                        handleEditClick("showContactNumber");
+                      }}
+                    >
+                      <AiOutlineEdit />
+                    </EditIcon>
+                  )}
+                </>
+              ) : (
+                <>
+                  No
+                  {canEdit && (
+                    <EditIcon
+                      onClick={() => {
+                        handleEditClick("showContactNumber");
+                      }}
+                    >
+                      <AiOutlineEdit />
+                    </EditIcon>
+                  )}
+                </>
               )}
             </UserDetail>
             <UserDetail>
@@ -171,6 +214,26 @@ const ProfileCard = ({ userData, canEdit, setUserData }) => {
               )}
             </UserDetail>
           </UserDetails>
+          {canEdit && (
+            <AddItemButton
+              type="button"
+              onClick={() => {
+                navigate(`/item/add`);
+              }}
+            >
+              Add an Item for Sale
+            </AddItemButton>
+          )}
+          {canEdit && (
+            <AddItemButton
+              type="button"
+              onClick={() => {
+                handleEditClick("changePassword");
+              }}
+            >
+              Change Password
+            </AddItemButton>
+          )}
         </UserInfo>
       </UserProfileCard>
       <Popup

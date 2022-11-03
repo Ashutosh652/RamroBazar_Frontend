@@ -74,7 +74,7 @@ export const CommentAction = styled.span`
   // border: 1px solid green;
   margin: 0.25em;
 
-  &: hover {
+  &:hover {
     color: #000;
     text-decoration: underline;
     cursor: pointer;
@@ -82,10 +82,11 @@ export const CommentAction = styled.span`
 `;
 
 export const CommentActionDelete = styled.span`
-margin: 0.25em;
+  margin: 0.25em;
 
-&: hover{
-  color: #ff0000;
-  text-decoration: underline;
-  cursor: pointer;
+  &:hover {
+    color: #ff0000;
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
